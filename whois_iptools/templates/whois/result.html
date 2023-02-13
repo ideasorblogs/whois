@@ -1,0 +1,74 @@
+{% include 'includes/navbar.html' %}
+
+<head>
+  <title>WHOIS Information</title>
+</head>
+{% include 'whois/result_search.html' %}
+
+<body>
+  {% if error %}
+    <p>{{ error }}</p>
+  {% else %}
+    <table>
+      <tr>
+        <td>Domain Name:</td>
+        <td>{{ whois_info.domain_name }}</td>
+      </tr>
+      <tr>
+        <td>Creation Date:</td>
+        <td>{{ whois_info.creation_date }}</td>
+      </tr>
+      <tr>
+        <td>Expiration Date:</td>
+        <td>{{ whois_info.expiration_date }}</td>
+      </tr>
+      <tr>
+        <td>Registrar:</td>
+        <td>{{ whois_info.registrar }}</td>
+      </tr>
+      <tr>
+        <td>Name Servers:</td>
+        <td>{{ whois_info.name_servers }}</td>
+      </tr>
+      <tr>
+        <td>Status:</td>
+        <td>{{ whois_info.status }}</td>
+      </tr>
+      <tr>
+        <td>Emails:</td>
+        <td>{{ whois_info.emails }}</td>
+      </tr>
+      <tr>
+        <td>Updated Date:</td>
+        <td>{{ whois_info.updated_date }}</td>
+      </tr>
+      <tr>
+        <td>Name:</td>
+        <td>{{ whois_info.name }}</td>
+      </tr>
+      <tr>
+        <td>Organization:</td>
+        <td>{{ whois_info.org }}</td>
+      </tr>
+      <tr>
+        <td>Address:</td>
+        <td>{{ whois_info.address }}</td>
+      </tr>
+      <tr>
+        <td>City:</td>
+        <td>{{ whois_info.city }}</td>
+      </tr>
+      <tr>
+        <td>State:</td>
+        <td>{{ whois_info.state }}</td>
+      </tr>
+      <tr>
+        <td>Zipcode:</td>
+        <td>{{ whois_info.zipcode }}</td>
+      </tr>
+      <tr>
+        <td>Country:</td>
+        <td>{{ whois_info.country }}</td>
+      </tr>
+    </table>
+  {% endif %}

@@ -1,0 +1,17 @@
+{% load static %}
+<div class="page-section banner-seo-check" id="whois">
+<div class="wrap bg-image" style="background-image: url({% static 'img/bg_pattern.svg' %});">
+  <div class="container ">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <h2 class="mb-4" style="font-family: 'Poppins', sans-serif;">Enter Domain Name to Check</h2>
+        <form method="POST" action="{% url 'whois_app' %}">
+          {% csrf_token %}
+          <input type="text" required class="form-control" placeholder="E.g google.com" id="domain_name" name="domain_name">
+          <button type="submit" class="btn btn-success">Check Now</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

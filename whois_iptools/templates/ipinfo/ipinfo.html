@@ -1,0 +1,22 @@
+{% include 'includes/navbar.html' %}
+
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="ip_address" placeholder="Enter an IP address" value="{{ client_ip }}">
+    <input type="submit" value="Submit">
+</form>
+
+<!-- result.html -->
+{% if error %}
+    {{ error }}
+{% else %}
+    <p>IP Address: {{ data.ip_address }}</p>
+    <p>City: {{ data.city }}</p>
+    <p>Region: {{ data.region }}</p>
+    <p>Country Code: {{ data.country_code }}</p>
+    <p>Country Name: {{ data.country_name }}</p>
+    <p>Latitude: {{ data.latitude }}</p>
+    <p>Longitude: {{ data.longitude }}</p>
+    <p>Time Zone: {{ data.time_zone }}</p>
+    <p>Currency: {{ data.currency }}</p>
+{% endif %}
