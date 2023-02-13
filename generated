@@ -1,0 +1,53 @@
+from django.shortcuts import render
+from django.http import HttpResponse
+from PIL import Image
+from io import BytesIO
+
+def optimize_image(request):
+    if request.method == 'POST':
+        image_file = request.FILES['image']
+        quality = int(request.POST.get('quality', 70))
+        img_format = request.POST.get('format', 'JPEG')
+        filename = request.POST.get('filename', 'optimized')
+
+        img = Image.open(image_file)
+        img = img.convert('RGB')
+        img = img.resize((800, 800), resample=Image.LANCZOS)
+        buffer = BytesIO()
+        img.save(buffer, format=img_format, optimize=True, quality=quality)
+        buffer.seek(0)
+        response = HttpResponse(buffer, content_type=f'image/{img_format.lower()}')
+        response['Content-Disposition'] = f'attachment; filename="{filename}.{img_format.lower()}"'
+        return response
+
+    return render(request, 'optimize_image.html')
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Image Optimizer</title>
+</head>
+<body>
+    <h1>Image Optimizer</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="quality">Quality (1-100):</label>
+        <input type="number" name="quality" id="quality" min="1" max="100" value="70">
+        <br><br>
+        <label for="format">Format:</label>
+        <select name="format" id="format">
+            <option value="JPEG" selected>JPEG</option>
+            <option value="PNG">PNG</option>
+            <option value="GIF">GIF</option>
+        </select>
+        <br><br>
+        <label for="filename">Filename:</label>
+        <input type="text" name="filename" id="filename" value="optimized">
+        <br><br>
+        <input type="file" name="image">
+        <input type="submit" value="Optimize">
+    </form>
+</body>
+</html>
